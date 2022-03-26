@@ -26,7 +26,7 @@ func TestPhoneHandler(t *testing.T) {
 		g.Expect(result[0].Country).To(Equal("Morocco"))
 		g.Expect(result[0].State).To(Equal("OK"))
 		g.Expect(result[0].CountryCode).To(Equal("+212"))
-		g.Expect(result[0].PhoneNumber).To(Equal("(212) 6007989253"))
+		g.Expect(result[0].PhoneNumber).To(Equal("6007989253"))
 	})
 
 	t.Run("Expect to receive empty slice of PhoneReturnee with invalid country on filter", func(it *testing.T) {
