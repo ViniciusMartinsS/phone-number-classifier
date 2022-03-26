@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  phone-number-classifier:
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
