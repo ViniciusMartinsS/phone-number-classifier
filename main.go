@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/ViniciusMartinss/phone-number-handler/src/handler"
 	"github.com/ViniciusMartinss/phone-number-handler/src/infrastructure"
 	"github.com/ViniciusMartinss/phone-number-handler/src/infrastructure/api"
@@ -22,5 +24,9 @@ func main() {
 		Set()
 
 	go server.Start()
+
+	port := infrastructure.GetConfig("api.port")
+	log.Printf("[INFO] Server Initialized Successfully. Running on: %s\n", port)
+
 	server.Stop()
 }

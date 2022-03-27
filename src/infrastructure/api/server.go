@@ -66,7 +66,7 @@ func (s server) Stop() {
 	)
 
 	<-ctx.Done()
-	log.Println("[WARN] Server is shutting down!")
+	log.Println("[INFO] Server shutting down!")
 
 	err := s.server.
 		Shutdown(context.Background())
