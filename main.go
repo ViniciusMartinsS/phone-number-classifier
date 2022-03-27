@@ -11,8 +11,6 @@ import (
 )
 
 func main() {
-	log.Println("[INFO] - Initializing Database...")
-
 	connection, err := infrastructure.InitializeDatabase()
 	if err != nil {
 		panic(err)
@@ -22,7 +20,13 @@ func main() {
 	phoneUsecase := usecase.NewphoneUsecase(phoneRepository)
 	phoneHandler := handler.NewPhoneHandler(phoneUsecase)
 
-	router := api.NewRouter(phoneHandler)
-	router.DefineRoutes().
-		Run()
+	server := api.NewServer(phoneHandler).
+		Set()
+
+	go server.Start()
+
+	port := infrastructure.GetConfig("api.port")
+	log.Printf("[INFO] Server Initialized Successfully. Running on: %s\n", port)
+
+	server.Stop()
 }
