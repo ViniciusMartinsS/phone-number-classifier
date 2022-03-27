@@ -1,9 +1,7 @@
-# Task Manager
+# Phone Number Classifier
 This service aims to classify phone numbers by Country & State. It also returns the country code & phone number itself.
 
 ## API Documentation
-
-<details>
 
 <details>
   <summary><b>List Tasks</b></summary>
