@@ -44,6 +44,8 @@ func (s server) defineRoutes() *mux.Router {
 	router := mux.NewRouter().
 		StrictSlash(true)
 
+	router.Use(SetHeaders)
+
 	router.HandleFunc("/phone", s.phoneListHandler).
 		Methods("GET")
 
