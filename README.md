@@ -44,7 +44,7 @@ This service aims to classify phone numbers by Country & State. It also returns 
 </details>
 
 ### Run In Postman
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/955776fb0c44d8d9235f)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4051c5456c226e2bc0ba)
 
 ## Developer Guideline
 
