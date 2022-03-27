@@ -43,5 +43,8 @@ func setFilters(r *http.Request) map[string]string {
 		Query().
 		Get(src.STATE)
 
-	return map[string]string{src.COUNTRY: country, "state": state}
+	return map[string]string{
+		src.COUNTRY: country,
+		src.STATE:   state,
+	}
 }
