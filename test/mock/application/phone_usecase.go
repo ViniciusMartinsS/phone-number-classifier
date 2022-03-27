@@ -20,7 +20,7 @@ func (p phoneUsecaseMock) List(filters ...map[string]string) []domain.PhoneRetur
 
 	phoneClassified := domain.PhoneReturnee{
 		Country:     "Morocco",
-		State:       "OK",
+		State:       "NOK",
 		CountryCode: "+212",
 		PhoneNumber: strings.Trim(phoneNumber, " "),
 	}

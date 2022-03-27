@@ -24,7 +24,7 @@ func TestPhoneHandler(t *testing.T) {
 
 		g.Expect(result).ToNot(BeNil())
 		g.Expect(result[0].Country).To(Equal("Morocco"))
-		g.Expect(result[0].State).To(Equal("OK"))
+		g.Expect(result[0].State).To(Equal("NOK"))
 		g.Expect(result[0].CountryCode).To(Equal("+212"))
 		g.Expect(result[0].PhoneNumber).To(Equal("6007989253"))
 	})

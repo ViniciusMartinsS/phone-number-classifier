@@ -25,7 +25,7 @@ func (p *phoneUsecase) List(filters ...map[string]string) []domain.PhoneReturnee
 		Find(country)
 
 	if err != nil {
-		return nil
+		return []domain.PhoneReturnee{}
 	}
 
 	return p.classifyPhoneNumbers(phoneNumbers, state)

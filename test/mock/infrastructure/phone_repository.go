@@ -1,6 +1,10 @@
 package infrastructure
 
-import "github.com/ViniciusMartinss/phone-number-handler/src/domain"
+import (
+	"fmt"
+
+	"github.com/ViniciusMartinss/phone-number-handler/src/domain"
+)
 
 type phoneRepositoryMock struct {
 	fail bool
@@ -11,5 +15,9 @@ func NewPhoneRepositoryMock(fail bool) domain.PhoneRepository {
 }
 
 func (p phoneRepositoryMock) Find(countryCode string) ([]string, error) {
-	return []string{"(212) 6007989253"}, nil
+	if p.fail {
+		return nil, fmt.Errorf("an error has happened")
+	}
+
+	return []string{"(212) 6007989253", "(212) 698054317"}, nil
 }
