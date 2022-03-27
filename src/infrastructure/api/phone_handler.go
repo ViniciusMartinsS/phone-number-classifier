@@ -4,9 +4,15 @@ import (
 	"net/http"
 
 	"github.com/ViniciusMartinss/phone-number-handler/src"
-	domainInfrastructure "github.com/ViniciusMartinss/phone-number-handler/src/infrastructure/domain"
+	"github.com/ViniciusMartinss/phone-number-handler/src/domain"
 	"github.com/gin-gonic/gin"
 )
+
+type apiResponse struct {
+	Status bool                   `json:"status"`
+	Count  int                    `json:"count"`
+	Result []domain.PhoneReturnee `json:"result"`
+}
 
 func (r *routes) phoneListHandler(c *gin.Context) {
 	filters := setFilters(c)
@@ -14,7 +20,7 @@ func (r *routes) phoneListHandler(c *gin.Context) {
 	result := r.phoneHandler.
 		List(filters)
 
-	response := domainInfrastructure.APIResponse{
+	response := apiResponse{
 		Status: true,
 		Count:  len(result),
 		Result: result,

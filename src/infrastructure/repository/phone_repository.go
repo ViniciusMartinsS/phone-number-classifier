@@ -5,7 +5,6 @@ import (
 
 	"github.com/ViniciusMartinss/phone-number-handler/src"
 	"github.com/ViniciusMartinss/phone-number-handler/src/domain"
-	domainInfrastructure "github.com/ViniciusMartinss/phone-number-handler/src/infrastructure/domain"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -13,12 +12,16 @@ type phoneRepository struct {
 	database *sqlx.DB
 }
 
+type customer struct {
+	Phone string `db:"phone"`
+}
+
 func NewPhoneRepository(connection *sqlx.DB) domain.PhoneRepository {
 	return phoneRepository{database: connection}
 }
 
 func (p phoneRepository) Find(countryCode string) ([]string, error) {
-	var customers []domainInfrastructure.Customer
+	var customers []customer
 
 	query := "SELECT phone FROM customer"
 
