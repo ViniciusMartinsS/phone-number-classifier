@@ -1,28 +1,77 @@
 package api
 
 import (
+	"context"
+	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/ViniciusMartinss/phone-number-handler/src/domain"
-	"github.com/gin-gonic/gin"
+	"github.com/ViniciusMartinss/phone-number-handler/src/infrastructure"
+	"github.com/gorilla/mux"
 )
 
-type router interface {
-	DefineRoutes() *gin.Engine
+type Server interface {
+	Set() server
+	Start()
+	Stop()
 }
 
-type routes struct {
+type server struct {
 	phoneHandler domain.PhoneHandler
+	server       *http.Server
 }
 
-func NewRouter(phoneHandler domain.PhoneHandler) router {
-	return &routes{phoneHandler}
+func NewServer(phoneHandler domain.PhoneHandler) Server {
+	return server{phoneHandler, nil}
 }
 
-func (r *routes) DefineRoutes() *gin.Engine {
-	router := gin.Default()
+func (s server) Set() server {
+	port := infrastructure.GetConfig("api.port")
 
-	router.
-		Group("phone").
-		GET("/", r.phoneListHandler)
+	s.server = &http.Server{
+		Addr:    fmt.Sprintf(":%s", port),
+		Handler: s.defineRoutes(),
+	}
+
+	return s
+}
+
+func (s server) defineRoutes() *mux.Router {
+	router := mux.NewRouter().
+		StrictSlash(true)
+
+	router.HandleFunc("/phone", s.phoneListHandler).
+		Methods("GET")
 
 	return router
+}
+
+func (s server) Start() {
+	s.server.
+		ListenAndServe()
+}
+
+func (s server) Stop() {
+	ctx, stop := signal.NotifyContext(
+		context.Background(),
+		os.Interrupt,
+		os.Kill,
+		syscall.SIGTERM,
+	)
+
+	<-ctx.Done()
+	log.Println("[WARN] Server is shutting down!")
+
+	err := s.server.
+		Shutdown(context.Background())
+
+	if err != nil {
+		log.Fatalf("[FAIL] Fail on stop the server, reason: %s\n", err.Error())
+	}
+
+	stop()
 }

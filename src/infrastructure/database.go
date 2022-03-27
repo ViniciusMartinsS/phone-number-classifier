@@ -9,6 +9,8 @@ import (
 )
 
 func InitializeDatabase() (*sqlx.DB, error) {
+	log.Println("[INFO] Initializing Database")
+
 	driver := GetConfig("database.driver")
 	databaseFile := GetConfig("database.file")
 
@@ -19,7 +21,7 @@ func InitializeDatabase() (*sqlx.DB, error) {
 
 	database := sqlx.NewDb(connection, driver)
 
-	log.Println("[INFO] Database Initialized Successfully!")
+	log.Println("[INFO] Database Initialized Successfully")
 
 	return database, nil
 }

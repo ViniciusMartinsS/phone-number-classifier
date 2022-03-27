@@ -1,11 +1,11 @@
 package api
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/ViniciusMartinss/phone-number-handler/src"
 	"github.com/ViniciusMartinss/phone-number-handler/src/domain"
-	"github.com/gin-gonic/gin"
 )
 
 type apiResponse struct {
@@ -14,10 +14,10 @@ type apiResponse struct {
 	Result []domain.PhoneReturnee `json:"result"`
 }
 
-func (r *routes) phoneListHandler(c *gin.Context) {
-	filters := setFilters(c)
+func (s server) phoneListHandler(w http.ResponseWriter, r *http.Request) {
+	filters := setFilters(r)
 
-	result := r.phoneHandler.
+	result := s.phoneHandler.
 		List(filters)
 
 	response := apiResponse{
@@ -26,12 +26,22 @@ func (r *routes) phoneListHandler(c *gin.Context) {
 		Result: result,
 	}
 
-	c.JSON(http.StatusOK, response)
+	w.WriteHeader(200)
+	w.Header().
+		Set("Content-Type", "application/json")
+
+	json.NewEncoder(w).
+		Encode(response)
 }
 
-func setFilters(context *gin.Context) map[string]string {
-	country := context.Query(src.COUNTRY)
-	state := context.Query(src.STATE)
+func setFilters(r *http.Request) map[string]string {
+	country := r.URL.
+		Query().
+		Get(src.COUNTRY)
+
+	state := r.URL.
+		Query().
+		Get(src.STATE)
 
 	return map[string]string{src.COUNTRY: country, "state": state}
 }
