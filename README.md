@@ -35,14 +35,6 @@ This service aims to classify phone numbers by Country & State. It also returns 
   }
   ```
 
-  #### Error Response
-  ```json
-  {
-    "status": false,
-    "message": "Internal Server Error Occurred. Please, get in touch with the support team."
-  }
-  ```
-
   #### Try it out
   ```bash
   curl --location --request GET 'localhost:8080/phone'
