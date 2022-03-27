@@ -15,6 +15,10 @@ func NewPhoneHandler(phoneUsecase domain.PhoneUsecase) domain.PhoneHandler {
 }
 
 func (p *phoneHandler) List(filters ...map[string]string) []domain.PhoneReturnee {
+	if len(filters) == 0 {
+		return p.phoneUsecase.
+			List()
+	}
 	country := helper.GetCountryFilter(filters...)
 
 	countryCode, existCountry := src.Codes[country]

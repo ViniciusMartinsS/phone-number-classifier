@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/ViniciusMartinss/phone-number-handler/src"
@@ -21,7 +20,6 @@ func GetCountryFilter(filters ...map[string]string) string {
 }
 
 func GetStateFilter(filters ...map[string]string) string {
-	fmt.Println(filters)
 	if len(filters) == 0 {
 		return ""
 	}
