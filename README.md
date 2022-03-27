@@ -4,17 +4,21 @@ This service aims to classify phone numbers by Country & State. It also returns 
 ## API Documentation
 
 <details>
-  <summary><b>List Tasks</b></summary>
+  <summary><b>List Phone Numbers</b></summary>
 
   </br>
 
-  > **Show all task of a technician**
+  > **Show all classified phone numbers**
 
   #### URL
   `/phone`
 
   #### Method
   `GET`
+
+  ### Query Params
+  `country`
+  `state`
 
   #### Success Response
   ```json
