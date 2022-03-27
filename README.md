@@ -46,6 +46,7 @@ This service aims to classify phone numbers by Country & State. It also returns 
   #### Try it out
   ```bash
   curl --location --request GET 'localhost:8080/phone'
+  curl --location --request GET 'localhost:8080/phone?country=Mozambique&state=ok'
   ```
 
 </details>
