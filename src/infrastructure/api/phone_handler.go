@@ -26,9 +26,9 @@ func (s server) phoneListHandler(w http.ResponseWriter, r *http.Request) {
 		Result: result,
 	}
 
-	w.WriteHeader(200)
 	w.Header().
 		Set("Content-Type", "application/json")
+	w.WriteHeader(200)
 
 	json.NewEncoder(w).
 		Encode(response)
