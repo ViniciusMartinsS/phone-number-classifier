@@ -1,7 +1,5 @@
 setup:
 	@go mod download
-	@go get -d gotest.tools/gotestsum
-	@go get -d github.com/go-courier/husky/cmd/husky && husky init
 
 docker:
 	@docker-compose up --build
@@ -13,7 +11,7 @@ lint:
 	@staticcheck ./...
 
 tests:
-	@gotestsum -f pkgname ./test/...
+	@go test -v ./...
 
 coverage:
 	@go test -v -cover -coverprofile=r.out -coverpkg ./src/... ./test/...
