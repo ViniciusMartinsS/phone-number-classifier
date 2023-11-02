@@ -1,13 +1,13 @@
-name: Go
+name: Run Automated Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
-  build:
+  run-automated-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,6 +19,9 @@ jobs:
 
       - name: Build
         run: go build -v ./...
+
+      - name: Generate Test Environment
+        run: cp environment/app-dist.json environment/app.json
 
       - name: Test
         run: go test -v ./...
